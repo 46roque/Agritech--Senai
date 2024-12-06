@@ -3,7 +3,7 @@
 <main>
     <h2>Editando usuarios</h2>
 
-    <form action="usuarios/<%= usuario.id_usuario %>/editar" method="post" class="form">
+    <form action="usuarios/<%= usuario.id_usuario %>/editar" method="post" class="form" style="background-color: white;">
         <div class="form-group">
             <label for="nome">Nome do usuario</label>
             <input type="text" id="nome" name="nome" value="<%= usuario.nome %>" required>
@@ -16,7 +16,7 @@
             <label for="senha">Senha</label>
             <input type="text" id="senha" name="senha" value="<%= usuario.senha %>" required>
         </div>
-        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <button type="submit" class="btn text-white" style="background-color:  #488727;">Adicionar</button>
         
         <a href="/usuarios" class="btn btn-danger">Cancelar</a>
     </form>

@@ -17,7 +17,7 @@
 
 <table class="dados-table">
     <thead>
-        <tr>
+        <tr style="background-color: #488727;">
             <th>nome</th>
             <th>usuario</th>
             <th>Ações</th>
@@ -31,7 +31,7 @@
         <td><%= usuarios.usuario%></td>
         
     <td class="d-flex">
-        <a href="/usuarios/<%=usuarios.id_usuario %>/editar"  class="btn btn-edit" >Editar</a>
+        <a href="/usuarios/<%=usuarios.id_usuario %>/editar"  class="btn text-white" style="background-color: #488727;" >Editar</a>
        <form action="/usuarios/<%= usuarios.id_usuario %>/deletar" method="POST" onsubmit="return confirmDelete()">
         <button type="submit" class="btn btn-delete">Excluir</button>
        </form>
