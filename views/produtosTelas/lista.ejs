@@ -1,0 +1,56 @@
+<%- include('../includes/header.ejs', {titulo: 'Lista Produtos'}) %>
+
+<main>
+  <h2>Lista de Produtos</h2>
+  <a href="/produtos/novo" class="btn" style="background-color: #488727; color:white"><i class="bi bi-plus-lg"></i> Adicionar produtos</a>
+
+
+  <!-- Formulário de pesquisa e ordenação -->
+  <form action="/produtos/" method="GET" class="gap-2 centralizar form form-consulta" style="background-color: white">
+    <input type="text" name="busca" placeholder="Buscar categoria" value="">
+    <button type="submit" class="btn text-white" style="background-color: #488727;" ><i class="fas fa-search"></i>buscar</button>
+
+
+    <select name="ordenar" style="border-radius: 10px;" onchange="this.form.submit()">
+      <option value="nome_produto" selected="">Ordenar por produto</option>
+      <option value="nome_categoria">Ordenar por categoria</option>
+      <option value="valor">Ordenar por valor</option>
+    </select>
+  </form>
+
+  <!-- Exibição dos produtos em formato de cards -->
+   
+  <div class="row d-flex justify-content-center">
+    <% for (let produto of vetorDados) { %>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4"> <!-- Ajuste das colunas para diferentes tamanhos de tela -->
+        <div class="card">
+          <img src="<%= produto.imagem %>" class="card-img-top" alt="<%= produto.nome_produto %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= produto.nome_produto %></h5>
+            <p class="card-text">Categoria: <%= produto.nome_categoria %></p>
+            <p class="card-text">Estoque: <%= produto.estoque %></p>
+            <p class="card-text">Estoque Mínimo: <%= produto.estoque_minimo %></p>
+            <p class="card-text">Valor: R$ <%= produto.valor.toFixed(2) %></p>
+            <div class="card-actions d-flex justify-content-between"> <!-- Organiza os botões -->
+              <a href="/produtos/<%= produto.id_produto %>/editar" class="btn btn-edit" style="background-color: #488727;">Editar</a>
+              <form action="/produtos/<%= produto.id_produto %>/deletar" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-delete">Excluir</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+</div>
+
+  
+  
+
+  
+  <!-- Paginação -->
+  <div class="pagination centralizar">
+    <span class="text-center">Página 1 de 1</span>
+  </div>
+</main>
+
+<%- include('../includes/footer.ejs') %>

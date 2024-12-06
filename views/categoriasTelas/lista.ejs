@@ -1,0 +1,42 @@
+<%- include('../includes/header.ejs', {titulo: 'lista categorias'}) %>
+
+<main>
+    
+<h2>Lista das categorias</h2>
+<a href="/categorias/novo" class="btn btn-sucess" style="background-color: #488727; color:white"><i class="bi bi-plus-lg"></i> Adicionar categoria</a>
+
+
+<form action="/categorias/" method="GET" class="form form-consulta" style="background-color: rgb(255, 255, 255);" >
+    <input type="text" name="busca" placeholder="Buscar categoria" value="">
+    <button type="submit" class="btn btn-success" style="background-color: #488727;" ><i class="fas fa-search"></i>buscar</button>
+    <select name="ordenar" onchange="this.form.submit()">
+      <option value="nome_categoria">Ordenar por categoria</option>
+    </select>
+  </form>
+
+
+<table class="dados-table">
+    <thead>
+        <tr style="background-color:#488727;">
+            <th>Nome da categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let categoria of categorias) { %>
+    </tbody>
+    <tr>
+        <td><%= categoria.nome_categoria %></td>
+        
+    <td class="d-flex">
+        <a href="/categorias/<%= categoria.id_categoria %>/editar"  class="btn text-white" style="background-color: #488727;">Editar</a>
+       <form action="/categorias/<%= categoria.id_categoria %>/deletar" method="POST" onsubmit="return confirmDelete()">
+        <button type="submit" class="btn btn-danger">Excluir</button>
+       </form>
+    </td>
+</tr>
+<% } %>
+</table>
+</main>
+
+<%- include('../includes/footer.ejs') %>

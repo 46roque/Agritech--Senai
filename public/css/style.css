@@ -1,0 +1,257 @@
+
+/* Botões de ação */
+.conteiner-fluid {
+  padding: 9px 18px;                      /* Tamanho adequado para o botão */
+  font-size: 0.95rem;                     /* Tamanho da fonte dos botões */
+  border: none;
+  border-radius: 6px;                     /* Bordas arredondadas nos botões */
+  cursor: pointer;                        /* Cursor de clique */
+  text-decoration: none;                  /* Remove o sublinhado nos links */
+  display: inline-block;                  /* Torna os botões alinhados */
+  transition: background-color 0.3s ease;
+}
+
+.card-text {
+  font-size: 0.95rem;                     /* Tamanho de texto agradável */
+  color: #555;                            /* Cor de texto mais suave */
+  margin-bottom: 8px;                     /* Espaçamento entre as linhas de texto */
+}
+
+.card-body {
+  padding: 15px;
+  text-align: center;                     /* Centraliza o texto */
+}
+
+/* Título do produto */
+
+/* Botões de ação */
+.btn-edit, .btn-delete {
+  padding: 8px 16px;                      /* Tamanho adequado para o botão */
+  font-size: 0.95rem;                     /* Tamanho da fonte dos botões */
+  border: none;
+  border-radius: 6px;                     /* Bordas arredondadas nos botões */
+  cursor: pointer;                        /* Cursor de clique */
+  text-decoration: none;                  /* Remove o sublinhado nos links */
+  display: inline-block;                  /* Torna os botões alinhados */
+  transition: background-color 0.3s ease;
+}
+ /* Sombra mais forte no hover */
+
+ .card{
+  width: 100%;                          /* O card ocupa toda a largura disponível */
+  max-width: 300px;                     /* Máxima largura do card */
+  margin: 50px;                          /* Margem ao redor do card */
+  border: 1px solid #ddd;                /* Borda leve ao redor do card */
+  border-radius: 25px;                   /* Bordas arredondadas */
+  overflow: hidden;                      /* Garante que nada extravase do card */
+  box-shadow: 0 4px 20px rgba(247, 246, 246, 0.1); /* Sombra suave ao redor do card */
+  background-color: #f6f7f5;                /* Cor de fundo do card */
+  transform:scale(1.05) ;
+  align-items: center;
+}
+.card:hover{
+  transform: scale(1.10);
+}
+
+.card-img-top {
+  object-fit: cover;
+  display: flex;
+  width: 200px !important; 
+  height: 200px !important;
+  border-radius: 20px;
+}
+
+/* Efeito de hover na imagem */
+.card:hover .card-img-top {
+  transform: scale(1.30);                 /* Aumenta a imagem em 5% ao passar o mouse */
+}
+
+header {
+    background-color: rgb(2, 2, 67);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #050505;
+    box-shadow: 0 3px 4px rgba(2, 0, 48, 0.5);
+
+}
+
+
+
+.logo{
+    font-size: 24px;
+    font-weight: bold;
+    display: flex; 
+    align-items: center;
+    gap: 10px; 
+    width: 50px;
+   
+} 
+
+main{
+    padding: 20px;
+}
+
+footer{
+    background-color: rgb(136, 134, 134);
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+h2{
+    text-align: center;
+}
+
+.dados-tabela{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    flex-wrap: wrap;
+    box-shadow:  0 4px 20px rgba(18, 95, 1, 0.471);
+    
+}
+
+.banner{
+    flex: auto;
+}
+
+.botao {
+    background-color: rgb(58, 212, 11);
+}
+
+.header-admin {
+    background-color:  #488727;
+    display: flex;
+    align-items: center;
+}
+
+.hover {
+    transform: translateY(-5);
+    transform: scale(1.1);
+    box-shadow: 0 8px 12px#488727;
+
+}
+
+.header-cor {
+    background-color:  #488727 !important;
+  position: r;
+}
+
+.dados-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .dados-table thead {
+    background-color: #4cbf00;
+    color: white;
+  }
+  
+  .dados-table th,
+  .dados-table td {
+    padding: 12px 15px;
+    border: 1px solid #000000;
+    text-align: left;
+  }
+  
+  .dados-table tr:nth-child(even) {
+    background-color: #edf3eb;
+  }
+  
+  .dados-table td a,
+  .dados-table td form {
+    display: inline-block;
+  }
+  
+  /* Estilo dos botões */
+  .btn {
+    padding: 8px 12px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #2e0afc;
+    color: white;
+  }
+  
+  .btn-edit {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  
+  .form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color:#99E89D;
+    border: 1px solid rgb(34, 234, 7);
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .img_produto{
+    width: 50px;
+  }
+    
+    
+
+  men {
+    background-color: #28a745;  /* Fundo verde */
+    color: white;               /* Texto branco */
+    font-size: 1.8em;           /* Tamanho intermediário */
+    font-weight: bold;          /* Texto em negrito */
+    padding: 15px;              /* Espaçamento interno */
+    text-align: center;         /* Texto centralizado */
+    position: fixed;            /* Fixa o footer */
+    bottom: 0;                  /* Fixa na parte inferior */
+    width: 100%;                /* Ocupa toda a largura */
+  }
+
+  .img-fluid-small {
+    width: 100px;   /* Ajuste a largura conforme necessário */
+    height: auto;   /* Mantém a proporção original da imagem */
+    border-radius: 5px; /* Bordas arredondadas, opcional */
+    object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+}
+  
+.centralizar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

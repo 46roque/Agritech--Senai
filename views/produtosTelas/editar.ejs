@@ -1,0 +1,198 @@
+<%- include('../includes/header.ejs', {titulo: 'Editar produtos' }) %>
+
+    <main>
+        <h2>Editar produtos</h2>
+
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#editar" type="button"
+                        aria-controls="editar" aria-selected="true" role="tab">
+                        Editar Produto
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lancar-mov" type="button"
+                        aria-controls="lancar-mov" aria-selected="false" role="tab" tabindex="-1">
+                        Lançar Movimentação
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="movimentacoes-tab" data-bs-toggle="tab" data-bs-target="#movimentacoes"
+                        type="button" aria-controls="movimentacoes" aria-selected="false" role="tab" tabindex="-1">
+                        Movimentações
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="notas-tab" data-bs-toggle="tab" data-bs-target="#grafico" type="button"
+                        aria-controls="grafico" aria-selected="false" role="tab" tabindex="-1">
+                        Gráfico
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Aba para Editar -->
+                <div class="tab-pane fade show active p-3" id="editar">
+                    <form action="/produtos/<%= produtos.id_produto %>/editar" method="POST" class="form" style="background-color: white;">
+                        <div class="form-group">
+                            <label for="nome_produto">Nome do produto:</label>
+                            <input type="text" id="nome_produto" name="nome_produto"
+                                value="<%= produtos.nome_produto %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estoque">Estoque:</label>
+                            <input type="text" id="estoque" name="estoque" value="<%= produtos.estoque %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estoque_minimo">Quantidade de estoque min:</label>
+                            <input type="text" id="estoque_minimo" name="estoque_minimo"
+                                value="<%= produtos.estoque_minimo %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="valor">Preço:</label>
+                            <input type="text" id="valor" name="valor" value="<%= produtos.valor.toFixed(2) %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagem">Imagem:</label>
+                            <input type="text" id="imagem" name="imagem" value="<%= produtos.imagem %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_categoria">Categoria:</label>
+                            <select id="id_categoria" name="id_categoria">
+                                <option value="">Selecione uma categoria</option>
+                                <% for (let categoria of categoriaCadastrados) { %>
+
+                                    <option value="<%= categoria.id_categoria %>" <% if
+                                        (categoria.id_categoria==produtos.id_categoria) { %>
+                                        selected
+                                        <% } %>
+                                            >
+                                            <%= categoria.nome_categoria %>
+                                    </option>
+                                    <% } %>
+
+                            </select>
+                        </div>
+                        <button type="submit" class="btn text-white" style="background-color: #488727;"> Salvar </button>
+                        <a href="/produtos/" class="btn btn-danger">Cancelar</a>
+                    </form>
+                </div>
+                <!-- Aba para Editar o produto/movimenta -->
+                <div class="tab-pane fade show  p-3" id="lancar-mov">
+
+                    <h2> Movimentação </h2>
+
+<form action="/produtos/<%= produtos.id_produto%>/lancar-nota" method="POST" class="form" style="background-color: white;">
+    <div class="form-group">
+        <label for="tipo_movimentacao">Tipo Movimentação</label>
+        <select id="tipo_movimentacao" name="tipo_movimentacao">
+            <option>Selecione uma Movimentação</option>
+            <option >Entrada</option>
+            <option >Saida</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="data_movimentacao"> Data Movimentação</label>
+        <input type="date" id="data_movimentacao" name="data_movimentacao" required>
+    </div>
+    <div class="form-group">
+        <label for="quantidade"> Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade" required>
+    </div>
+
+    <div class="form-group">
+        <label for="descricao"> Descrição</label>
+        <input type="text" id="descricao" name="descricao"  required>
+    </div>
+    
+    
+    <button type="submit" class="btn text-white" style="background-color: #488727;">Gravar</button>
+    <a href="/produtos" class="btn btn-danger">Cancelar</a>
+</form>
+                </div>
+                <!-- Aba para Editar o Aluno -->
+                <div class="tab-pane fade show  p-3" id="movimentacoes">
+
+                    <h4>Movimentação do produto</h4>
+                    <table class="dados-table">
+                        <thead>
+                            <tr style="background-color: #488727;">
+                                <th>Tipo de Movimentação</th>
+                                <th>Data</th>
+                                <th>Quantidade</th>
+                                <th>Estoque</th>
+                                <th>Descrição</th>
+                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                                <% for (let movimentacao  of movimentacoes) { %>
+                            
+                            <tr>
+                                <td><%=movimentacao.tipo_movimentacao%></td>
+                                <td><%=movimentacao.data_movimentacao%></td>
+                                <td><%=movimentacao.quantidade%></td>
+                                <td><%=movimentacao.estoque%></td>
+                                <td><%=movimentacao.descricao%></td>
+                                
+                            </tr>
+                            <% } %>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            
+                
+                <!-- Aba para Editar o Aluno -->
+                <div class="col-md-4" id="grafico">
+                <div class="card shadow-sm">
+                    <div class="card-header bg text-white" style="background-color: #488727;">
+                        movimentacao de produtos
+                    </div>
+                    <div class="card-body">
+                        <canvas id="graficoMovimentacoes" width="880" height="440"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    <script>
+
+     const dadosmovimentacao = <%- JSON.stringify(movimentacoes) %>
+        
+        const nomemovimentacao = dadosmovimentacao.map(m => m.data_movimentacao)
+        const movimentacoes = dadosmovimentacao.map(m => m.estoque)
+
+        const barCtx = document.getElementById('graficoMovimentacoes').getContext('2d');
+            new Chart(barCtx, {
+                type: 'line',
+                data: {
+                    labels: nomemovimentacao,
+                    datasets: [{
+                        label: 'Movimentacoes',
+                        data: movimentacoes,
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+</script>
+
+</main>
+    <%- include('../includes/footer.ejs') %>

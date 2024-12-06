@@ -1,0 +1,191 @@
+<%- include('../includes/header.ejs', { titulo : 'Dashboard'}) %> 
+
+<main>
+    <h2>Painel Administrativo</h2> 
+
+    <section class="container-fluid">
+        <!-- Cards principais com valores -->
+        <section class="row text-center mb-4">
+            <!-- Card Total de Produtos -->
+            <div class="col-md-3">
+                <div class="card shadow-sm card-dec">
+                    <div class="card-body">
+                        <h5 class="card-title">Total de Produtos</h5>
+                        <p class="card-text display-4"><%= totalprodutos %></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Total de Categorias -->
+            <div class="col-md-3">
+                <div class="card shadow-sm card-dec">
+                    <div class="card-body">
+                        <h5 class="card-title">Total de Categorias</h5>
+                        <p class="card-text display-4"><%= totalcategorias %></p>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Card de Valor Total em Estoque -->
+            <div class="col-md-3">
+                <div class="card shadow-sm card-dec">
+                    <div class="card-body">
+                        <h5 class="card-title">Valor Total em Estoque</h5>
+                        <p class="card-text display-4"><%= vatotal.toFixed(2) %></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Nº Prod. em Estoque Mínimo -->
+            <div class="col-md-3">
+                <div class="card shadow-sm card-dec">
+                    <div class="card-body">
+                        <h5 class="card-title">Nº Prod. em Estoque Mínimo</h5>
+                        <p class="card-text display-4"><%= abaixo %></p> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção dos gráficos -->
+        <section class="row text-center justify-content-center">
+            <!-- Gráfico de Barras: Valor Estoque por Categoria -->
+            <div class="col-md-5">
+                <div class=" shadow-sm">
+                    <div class="card-header bg text-white" style="background-color: #488727;">
+                        Produtos acima e abaixo do estoque
+                    </div>
+                    <div class="card-body">
+                        <canvas id="barrasEstoqueCategoria" width="1124" height="562"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfico de Barras: Estoque Produtos -->
+            <div class="col-md-4">
+                <div class="shadow-sm">
+                    <div class="card-header bg text-white" style="background-color: #488727;">
+                        Estoque de Produtos
+                    </div>
+                    <div class="card-body">
+                        <canvas id="barrasProdutos" width="880" height="440"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg text-white text-center p-3 mt-5" style= "background-color: #488727;" >
+        Produtos abaixo do estoque mínimo
+    </footer>
+
+</main>
+<!-- Tabela de Produtos Abaixo do Estoque Mínimo -->
+<!-- <h3 class="mt-5">Produtos Abaixo do Estoque Mínimo</h3> -->
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">foto</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade em Estoque</th>
+            <th scope="col">Quantidade Mínima</th>
+            <th scope="col">Diferença</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let produto of produtosEstoqueMinimo) { %>
+        <tr>
+            
+            <td><img class="img-fluid-small" src="<%= produto.imagem %>" alt=""> </td>
+            <td><%= produto.nome_produto %></td>
+            <td><%= produto.estoque %></td>
+            <td><%= produto.estoque_minimo %></td>
+            <td><%= produto.estoque - produto.estoque_minimo %></td>
+            <td>
+                <% if (produto.estoque < produto.estoque_minimo) { %>
+                <span class="badge bg-danger">Abaixo do Mínimo</span>
+                <% } else if (produto.qtd_estoque === produto.estoque_minimo) { %>
+                <span class="badge bg-danger ">No Mínimo</span>
+                <% } else { %>
+                <span class="badge bg-success">Acima do Mínimo</span>
+                <% } %>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+</div>
+
+<script>
+    // Grafico quantidade de produtos
+     const dadosprodutos = <%- JSON.stringify(categorias_estoques) %>
+        
+        const nomeproduto = dadosprodutos.map(c => c.nome_categoria)
+        const categorias_estoques = dadosprodutos.map(c => c.estoque)
+        // Bar Chart - Média de Notas por Disciplinag
+            const barCtx = document.getElementById('barrasProdutos').getContext('2d');
+                new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: nomeproduto,
+                        datasets: [{
+                            label: 'quantidade de produtos',
+                            data: categorias_estoques,
+                            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: true },
+                            tooltip: { enabled: true }
+                        }
+                    }
+                });
+
+
+
+            // Grafico estoque minimo e maximo
+            
+            const dadosAbaixo = <%- JSON.stringify(abaixo_estoque) %>;
+
+const nomeEstoqueMin = dadosAbaixo.map(ab => ab.nome_produto)
+const dadosEstoqueMinimo = dadosAbaixo.map(ab => ab.estoque)
+
+const dadosAcima = <%- JSON.stringify(max_estoque) %>
+const nomeEstoqueMax = dadosAcima.map(ac => ac.nome_produto)
+const dadosEstoqueMaximo = dadosAcima.map(ac => ac.estoque)
+const barCtxMIn = document.getElementById('barrasEstoqueCategoria').getContext('2d');
+new Chart(barCtxMIn, {
+    type: 'bar',
+    data: {
+        labels: [...nomeEstoqueMin, ...nomeEstoqueMax], // Combina os rótulos
+        datasets: [
+            {
+                label: 'Produtos abaixo do estoque',
+                data: dadosEstoqueMinimo,
+                
+            },
+            {
+                label: 'Produtos acima do estoque',
+                data: dadosEstoqueMaximo,
+                
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+        }
+    }
+});
+
+</script>
+<%- include('../includes/footer.ejs') %>

@@ -1,0 +1,44 @@
+  <%- include('../includes/header.ejs', {titulo: 'lista dos Produtos'}) %>
+
+<main>
+    
+<h2>Lista de usuarios</h2>
+<a href="/usuarios/novo" class="btn text-white" style="background-color: #488727;"><i class="bi bi-plus-lg"></i> Adicionar usúario</a>
+
+<form action="/usuarios/" method="GET" class="form form-consulta" style="background-color:white;">
+    <input type="text" name="busca" placeholder="Buscar usuario" value="">
+    <button type="submit" class="btn text-white" style="background-color: #488727;"><i class="bi bi-search"></i>Buscar</button>
+    <select name="ordenar" onchange="this.form.submit()">
+      <option value="nome_usuario" selected="">Ordenar por nome</option>
+      <option value="nome_categoria">Ordenar por usuario</option>
+    </select>
+  </form>
+
+
+<table class="dados-table">
+    <thead>
+        <tr>
+            <th>nome</th>
+            <th>usuario</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let usuarios of vetorDados) { %>
+    </tbody>
+    <tr>
+        <td><%= usuarios.nome%></td>
+        <td><%= usuarios.usuario%></td>
+        
+    <td class="d-flex">
+        <a href="/usuarios/<%=usuarios.id_usuario %>/editar"  class="btn btn-edit" >Editar</a>
+       <form action="/usuarios/<%= usuarios.id_usuario %>/deletar" method="POST" onsubmit="return confirmDelete()">
+        <button type="submit" class="btn btn-delete">Excluir</button>
+       </form>
+    </td>
+</tr>
+<% } %>
+</table>
+</main>
+
+<%- include('../includes/footer.ejs') %>
